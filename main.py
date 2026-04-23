@@ -27,7 +27,6 @@ def konyvek_lekerese(max_oldalak=3):
 
     return konyvek
 
-
 def konyvek_rendezese(konyvek):
     return sorted(konyvek, key=lambda x: x["Letöltések"], reverse=True)
 
@@ -45,15 +44,12 @@ def csv_mentes(konyvek):
     print("Mentve: konyvek.csv")
 
 
-# --- Főprogram ---
-
 konyvek = konyvek_lekerese(5)
 
-# 👉 Rendezés letöltések szerint (legnépszerűbb elöl)
+# Rendezés letöltések szerint csökkenő sorrendben
 konyvek = konyvek_rendezese(konyvek)
 
 print(f"\nTalált könyvek száma: {len(konyvek)}")
-
 print("\nTop 10 legnépszerűbb könyv:")
 for k in konyvek[:10]:
     print(f"{k['Cím']} — {k['Szerzők']} ({k['Letöltések']} letöltés)")
