@@ -1,5 +1,6 @@
 import requests
 import csv
+import json
 
 def konyvek_lekerese(max_oldalak=3):
     url = "https://gutendex.com/books?search=hungarian"
@@ -43,6 +44,16 @@ def csv_mentes(konyvek):
 
     print("Mentve: konyvek.csv")
 
+def json_mentes(konyvek):
+    if not konyvek:
+        print("Nincs menthető adat.")
+        return
+
+    with open("konyvek.json", "w", encoding="utf-8") as fajl:
+        json.dump(konyvek, fajl, ensure_ascii=False, indent=4)
+
+    print("Mentve: konyvek.json")
+
 
 konyvek = konyvek_lekerese(5)
 
@@ -54,3 +65,4 @@ for k in konyvek[:10]:
     print(f"{k['Cím']} — {k['Szerzők']} ({k['Letöltések']} letöltés)")
 
 csv_mentes(konyvek)
+json_mentes(konyvek)
