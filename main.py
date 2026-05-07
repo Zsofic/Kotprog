@@ -13,7 +13,7 @@ def konyvek_lekerese(max_oldalak=3):
 
         for konyv in adatok["results"]:
             cim = konyv.get("title", "Nincs cím")
-            szerzok = ", ".join(s["name"] for s in konyv.get("authors", [])) or "Ismeretlen"
+            szerzok = ", ".join(szerzo["name"] for szerzo in konyv.get("authors", [])) or "Ismeretlen"
             letoltesek = konyv.get("download_count", 0)
 
             konyvek.append({
@@ -46,7 +46,6 @@ def csv_mentes(konyvek):
 
 konyvek = konyvek_lekerese(5)
 
-# Rendezés letöltések szerint csökkenő sorrendben
 konyvek = konyvek_rendezese(konyvek)
 
 print(f"\nTalált könyvek száma: {len(konyvek)}")
