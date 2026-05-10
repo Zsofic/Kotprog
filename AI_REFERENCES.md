@@ -11,7 +11,6 @@
 7. return sorted(konyvek, key=lambda x: x[Letöltések], reverse=True)
    miért nem műkszik?
 8. csv-be hogy mentsem az adatokat?
-9. iro = csv.DictWriter(f, fieldnames=kulcsok)
-   mi az az iro?
+9. iro = csv.DictWriter(f, fieldnames=kulcsok) mi az az iro?
 10. ki akarom íratni a top 10 legnépszerűbb könyvet, amit talált a program, hogy érdemes ezt?
 11. Generálj egy CHATGPT.md nevű fájlt, melybe a jelenlegi beszélgetés tartalma, elsősorban a promptok kerüljenek rögzítésre.
