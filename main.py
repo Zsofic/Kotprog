@@ -8,13 +8,22 @@ def konyvek_lekerese(max_oldalak=3):
     oldal = 0
 
     while url and oldal < max_oldalak:
-        print(f"Oldal lekérése: {oldal + 1}")
+        print("Oldal lekérése:", oldal + 1)
         valasz = requests.get(url)
         adatok = valasz.json()
 
         for konyv in adatok["results"]:
             cim = konyv.get("title", "Nincs cím")
-            szerzok = ", ".join(szerzo["name"] for szerzo in konyv.get("authors", [])) or "Ismeretlen"
+
+            szerzok_lista = []
+            for szerzo in konyv.get("authors", []):
+                szerzok_lista.append(szerzo["name"])
+
+            szerzok = ", ".join(szerzok_lista)
+
+            if szerzok == "":
+                szerzok = "Ismeretlen szerző"
+
             letoltesek = konyv.get("download_count", 0)
 
             konyvek.append({
@@ -33,36 +42,29 @@ def konyvek_rendezese(konyvek):
 
 
 def csv_mentes(konyvek):
-    if not konyvek:
-        print("Nincs menthető adat.")
-        return
-
     with open("konyvek.csv", "w", newline="", encoding="utf-8") as fajl:
         iro = csv.DictWriter(fajl, fieldnames=konyvek[0].keys())
         iro.writeheader()
         iro.writerows(konyvek)
 
-    print("Mentve: konyvek.csv")
+    print("Mentve ide: konyvek.csv")
+
 
 def json_mentes(konyvek):
-    if not konyvek:
-        print("Nincs menthető adat.")
-        return
-
     with open("konyvek.json", "w", encoding="utf-8") as fajl:
         json.dump(konyvek, fajl, ensure_ascii=False, indent=4)
 
-    print("Mentve: konyvek.json")
+    print("Mentve ide: konyvek.json")
 
 
 konyvek = konyvek_lekerese(5)
-
 konyvek = konyvek_rendezese(konyvek)
 
-print(f"\nTalált könyvek száma: {len(konyvek)}")
+print("Talált könyvek száma:", len(konyvek))
 print("\nTop 10 legnépszerűbb könyv:")
-for k in konyvek[:10]:
-    print(f"{k['Cím']} — {k['Szerzők']} ({k['Letöltések']} letöltés)")
+
+for konyv in konyvek[:10]:
+    print(konyv["Cím"], "—", konyv["Szerzők"], "(", konyv["Letöltések"], "letöltés)")
 
 csv_mentes(konyvek)
 json_mentes(konyvek)
