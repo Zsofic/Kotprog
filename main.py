@@ -43,9 +43,9 @@ def konyvek_rendezese(konyvek):
 
 def csv_mentes(konyvek):
     with open("konyvek.csv", "w", newline="", encoding="utf-8") as fajl:
-        iro = csv.DictWriter(fajl, fieldnames=konyvek[0].keys())
-        iro.writeheader()
-        iro.writerows(konyvek)
+        csviro = csv.DictWriter(fajl, fieldnames=konyvek[0].keys())
+        csviro.writeheader()
+        csviro.writerows(konyvek)
 
     print("Mentve ide: konyvek.csv")
 
