@@ -2,7 +2,7 @@
 
 ## Felhasználói promptok
 
-1. pythonban hogyan kell API-t lekérni Pythonban?
+1. pythonban hogyan kell API-t lekérni?
 2. mit csinál a requests.get()?
 3. azt akarom, hogy népszerűségi sorrendbe jelenjenek meg az adatok hogy csináljam?
 4. lambda függvénnyel lehet ezt?
